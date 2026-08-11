@@ -4,16 +4,16 @@
 
 | Method | Year | Core Mechanism | Gradient Scaling | Requires | Limitations | GLA Advantage |
 |--------|------|---------------|-------------------|----------|-------------|---------------|
-| **GLA (This Work)** | 2026 | Identity init + Local costs + Adaptive QFIM | Ω(1/poly(n)) | Shallow circuits | Expressivity constraint | Complete framework with runtime monitoring |
-| Layer-Wise Training | 2020 | Greedy layer-by-layer optimization | O(1/poly(n)) per layer | Layered ansatz | No global guarantee | GLA has provable global convergence |
-| Parameter Correlation | 2021 | Correlated parameter initialization | O(1/poly(n)) | Specific ansatz | Limited to 1D/chain structures | GLA works on arbitrary 2D lattices |
-| Identity Block Strategy | 2022 | Identity-initialized blocks | O(1/poly(n)) | Block structure | Fixed architecture | GLA adds adaptive re-centering |
-| Local Cost Functions | 2021 | Nearest-neighbor observables | Ω(1/poly(n)) | Shallow depth | Expressivity gap | GLA combines with identity init + monitoring |
+| **GLA (This Work)** | 2026 | Identity init + Local costs + Adaptive QFIM | $\Omega(1/\text{poly}(n))$ | Shallow circuits | Expressivity constraint | Complete framework with runtime monitoring |
+| Layer-Wise Training | 2020 | Greedy layer-by-layer optimization | $\mathcal{O}(1/\text{poly}(n))$ per layer | Layered ansatz | No global guarantee | GLA has provable global convergence |
+| Parameter Correlation | 2021 | Correlated parameter initialization | $\mathcal{O}(1/\text{poly}(n))$ | Specific ansatz | Limited to 1D/chain structures | GLA works on arbitrary 2D lattices |
+| Identity Block Strategy | 2022 | Identity-initialized blocks | $\mathcal{O}(1/\text{poly}(n))$ | Block structure | Fixed architecture | GLA adds adaptive re-centering |
+| Local Cost Functions | 2021 | Nearest-neighbor observables | $\Omega(1/\text{poly}(n))$ | Shallow depth | Expressivity gap | GLA combines with identity init + monitoring |
 | Problem-Inspired Ansatz | 2023 | Physics-motivated circuit design | Problem-dependent | Domain knowledge | Not generalizable | GLA is general; works for any local Hamiltonian |
 | Quantum Natural Gradient | 2020 | QFIM-preconditioned optimization | Same as base | QFIM inversion | Expensive QFIM computation | GLA uses QFIM for monitoring, not inversion |
 | Warm-Start VQE | 2022 | Classical approximation as init | Problem-dependent | Good classical approx | Fails without classical pre-computation | GLA requires no classical preprocessing |
-| Meta-Learning Init | 2023 | Learned initialization from small instances | O(1/poly(n)) | Training data | Transfer limited | GLA needs no training; theoretical guarantee |
-| Deterministic Init (e.g., HEA) | 2022 | Structured parameter patterns | O(1/poly(n)) | Specific ansatz | Narrow applicability | GLA general + adaptive |
+| Meta-Learning Init | 2023 | Learned initialization from small instances | $\mathcal{O}(1/\text{poly}(n))$ | Training data | Transfer limited | GLA needs no training; theoretical guarantee |
+| Deterministic Init (e.g., HEA) | 2022 | Structured parameter patterns | $\mathcal{O}(1/\text{poly}(n))$ | Specific ansatz | Narrow applicability | GLA general + adaptive |
 
 ---
 
@@ -36,7 +36,7 @@
 
 ### 2. Parameter Correlation / Correlated Ansatz (Volkhoff et al., 2021)
 
-**Mechanism:** Initialize parameters with spatial correlations matching the Hamiltonian structure.
+**Mechanism:** Initialize parameters with spatial correlations matching the structure of the Hamiltonian.
 
 **Pros:** Reduces effective parameter space; preserves local structure.
 
@@ -60,7 +60,7 @@
 - No mechanism to prevent drift during optimization
 - Fixed architecture limits expressivity
 
-**GLA vs. Identity Block:** GLA uses general parameterized gates (RX, RY, RZ) with adaptive re-centering. The QFIM monitoring actively prevents drift, rather than relying on fixed structure.
+**GLA vs. Identity Block:** GLA uses general parameterized gates with adaptive re-centering. The QFIM monitoring actively prevents drift, rather than relying on fixed structure.
 
 ---
 
@@ -101,7 +101,7 @@
 **Pros:** Respects quantum geometry; faster convergence in trainable regions.
 
 **Cons:**
-- QFIM inversion is O(p³) where p = number of parameters
+- QFIM inversion is $\mathcal{O}(p^3)$ where $p$ is the number of parameters
 - Doesn't solve the BP problem---just optimizes within the landscape
 - Can be unstable near singular QFIM
 
@@ -149,23 +149,11 @@
 | **Runtime monitoring** | ✅ QFIM | ❌ No | ❌ No | ❌ No | ❌ No | ⚠️ Implicit |
 | **Adaptive correction** | ✅ Re-centering | ❌ No | ❌ No | ❌ No | ❌ No | ❌ No |
 | **2D lattice compatible** | ✅ Yes | ✅ Yes | ✅ Yes | ⚠️ Limited | ✅ Yes | ✅ Yes |
-| **Shallow depth required** | ✅ O(log n) | ⚠️ Any | ✅ O(log n) | ⚠️ Any | ⚠️ Any | ⚠️ Any |
-| **Shot complexity** | poly(n) | poly(n) | poly(n) | poly(n) | exp(n) | exp(n) |
+| **Shallow depth required** | ✅ $\mathcal{O}(\log n)$ | ⚠️ Any | ✅ $\mathcal{O}(\log n)$ | ⚠️ Any | ⚠️ Any | ⚠️ Any |
+| **Shot complexity** | $\text{poly}(n)$ | $\text{poly}(n)$ | $\text{poly}(n)$ | $\text{poly}(n)$ | $\text{exp}(n)$ | $\text{exp}(n)$ |
 | **Implementation complexity** | Medium | Medium | Low | Low | High | High |
 
 **Legend:** ✅ Strong | ⚠️ Moderate | ❌ Weak
-
----
-
-## Why GLA Wins
-
-The key insight is that **no single technique is sufficient**. GLA is the first framework to combine:
-
-1. **Initialization** (identity + perturbation) → avoids Haar-random regime
-2. **Cost design** (local observables) → polynomial gradient bound
-3. **Runtime control** (QFIM monitoring + adaptive re-centering) → prevents drift
-
-This tripartite safeguard is what makes GLA complete. Other methods have one or two ingredients, but none have all three working in concert with theoretical guarantees.
 
 ---
 
