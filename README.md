@@ -68,8 +68,9 @@ print(f"Final Falsifiability Distance (D_Haar): {fals_history[-1][1]:.6f}")
 
 | File | Purpose |
 |------|----------|
-| [`gla_vqe.py`](gla_vqe.py) | Production GLA Engine, 2D Hubbard mapping, & helper routines |
-| [`GLA_Whitepaper.md`](GLA_Whitepaper.md) | Technical whitepaper with concentration-of-measure proofs & scenario hypotheses |
+| [`gla_vqe.py`](gla_vqe.py) | Reference implementation (PennyLane) |
+| [`gla_paper.tex`](gla_paper.tex) | Journal/Conference paper draft (LaTeX) |
+| [`GLA_Whitepaper.md`](GLA_Whitepaper.md) | Theoretical framework & proofs |
 | [`COMPARISON.md`](COMPARISON.md) | GLA vs. other BP mitigation strategies |
 | [`test_gla.py`](test_gla.py) | Comprehensive test suite |
 | [`examples/`](examples/) | Jupyter notebooks & tutorials |
