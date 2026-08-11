@@ -110,13 +110,15 @@ class GLA_VQE:
         Returns:
             Estimated gradient variance
         """
+        from pennylane import numpy as pnp
         grad_fn = qml.grad(self.cost_function)
         gradients = []
         
         for _ in range(n_samples):
             # Random perturbation
             delta = np_orig.random.normal(0, 0.01, params.shape)
-            g = np_orig.linalg.norm(grad_fn(params + delta))
+            params_input = pnp.array(params + delta, requires_grad=True)
+            g = np_orig.linalg.norm(grad_fn(params_input))
             gradients.append(g)
         
         return float(np_orig.var(gradients))
@@ -135,6 +137,7 @@ class GLA_VQE:
         Returns:
             (stability_metric, eigenvalues)
         """
+        from pennylane import numpy as pnp
         grad_fn = qml.grad(self.cost_function)
         p_flat = params.flatten()
         n_params = len(p_flat)
@@ -144,7 +147,8 @@ class GLA_VQE:
         for i in range(n_params):
             params_pert = p_flat.copy()
             params_pert[i] += eps
-            g = grad_fn(params_pert.reshape(params.shape))
+            params_input = pnp.array(params_pert.reshape(params.shape), requires_grad=True)
+            g = grad_fn(params_input)
             jacobian[i] = g.flatten()
         
         # QFIM = J^T J
