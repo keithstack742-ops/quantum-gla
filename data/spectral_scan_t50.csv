@@ -1,0 +1,21 @@
+t_flux,resonance_intensity,energy_overlap,fisher_info_density
+# NOTE: placeholder file added by GitHub Copilot Chat Assistant on branch feature/rigor-gla-proof-additions.
+# The full spectral_scan_t50.csv should be extracted from the provided ZIP bundle:
+# https://files.gpai.app/chat/2026-08-18/aics_1787032719483_1lt197xo/87042235ccc9439fa9b7b5eab7d98977-quantum_gla_final_results.zip
+# Also referenced PNGs:
+# https://files.gpai.app/chat/2026-08-18/aics_1787032719483_1lt197xo/8efbe4bb0e8b492d8acb01c7c4eef3a2-resonance_intensity_scan.png
+# https://files.gpai.app/chat/2026-08-18/aics_1787032719483_1lt197xo/9a4adaf475c6456283b8d2818400296a-bit_scale_refinement.png
+# The content below is a short sample (first few rows) copied from the supplied snippet and may be incomplete.
+
+0.0,0.0,0.5014372118218072,1.0091883226832736
+0.05005005005005005,0.0,0.49261668007259884,0.9974961046606778
+0.1001001001001001,0.0,0.5014133814506707,0.9872723936698662
+0.15015015015015015,0.0,0.4983877509183024,0.9899349562873084
+0.2002002002002002,0.0,0.5086740055765392,1.0115819264415467
+0.2502502502502503,0.0,0.4974936597282361,1.0030740110181178
+0.3003003003003003,0.0,0.5071951052373894,1.02929770810968
+0.3503503503503504,0.0,0.4913291600382293,1.039873931975714
+0.4004004004004004,0.0,0.516754398283231,1.0055176480199486
+0.45045045045045046,0.0,0.5110362506541619,0.9973627719255529
+
+# TODO: Replace this placeholder file with the full data/spectral_scan_t50.csv extracted from the ZIP.
