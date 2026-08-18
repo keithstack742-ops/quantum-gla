@@ -1,0 +1,12 @@
+{
+    "scan_range": [
+        0,
+        50
+    ],
+    "resolution": 1000,
+    "detected_resonances": 10,
+    "max_overlap": 0.9592112951213863,
+    "min_fisher_info": 0.186828128808181,
+    "status": "COMPLETED",
+    "timestamp": "2026-08-17T23:14:00Z"
+}
